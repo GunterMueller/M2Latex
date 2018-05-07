@@ -1,0 +1,184 @@
+.TH M2LATEX 1 "29 August 1991" "MAGPIE Release 1.0"
+
+.nr 99 \n(.s
+.nr 98 \n(.f
+.ds 11 "\fRo
+.nr 11 \w'\s10\*(11'
+.nr 10 0u
+.if \n(ct>1 .nr 10 \n(10+\s10.25m\s0
+.nr 13 \s10.1m\s0
+.if \n(ct>1 .nr 13 \s10.15m\s0
+.ds 12 \s10\v'-.67m'..\v'.67m\s0'
+.nr 12 \w'\s10\*(12'
+.as 11 \h'-\n(11u-\n(12u/2u+\n(13u'\v'0-\n(10u'\*(12\v'\n(10u'\h'-\n(12u+\n(11u/2u-\n(13u'
+.ds o \x'0'\f1\s10\*(11\s\n(99\f\n(98
+\" this noise gets my name right!
+
+.SH NAME
+m2latex - a Modula-2 to LaTeX converter
+
+.SH SYNOPSIS
+.I m2latex
+.B [-c] [-h] [-i length]
+.B [-n] [-o file] [-p] [-s fontsize] [-C font] [-F font]
+.B [-H font] [-K font] [-P] [-S font] [-T width] [-V]
+.B [+complete-file] [+header] [+indentation length]
+.B [+output file] [+font-size size] [+pipe]
+.B [+comment-font font] [+function-font font]
+.B [+keyword-font font] [+pascal] [+header-font font]
+.B [+string-font font] [+tabstop width] [+version]
+.I file
+
+.SH DESCRIPTION
+.I m2latex
+is a tool for generating
+.I LaTeX
+sources from
+.B Pascal
+or
+.B Modula-2
+It recogizes all keywords, strings, and comments. These recognized parts
+can be typeset in different fonts.
+.I m2latex
+can generate complete \fILaTeX\fR files which can pass directly
+through latex(1) or parts of
+.I LaTeX
+files which can be included in other files (either direct or by the
+.B \\\\input
+or
+.B \\\\include
+commands).
+.LP
+The output filename is searched in various steps. First, if the
+{-o,+output} flag is given, the output is written to the file pointed
+to by the value of this flag. If the {-p,+pipe} option is given, the
+output is written to
+.I stdout.
+(It is an error to specify both options
+together.) If none of these options but an input filename is given, the
+output is written to a file who's name is the last component of the
+input filename with the added suffix '.tex'.
+
+.SH OPTIONS
+.I m2latex
+recognizes the following options:
+.TP
+.B {-c,+complete-file}
+The output is enveloped in
+commands which produce a complete
+.I LaTeX
+source.
+.TP
+.B {-h,+header}
+Each page of output has a header giving the input file name.
+This option implies the
+{-c,+complete-file} option.
+.TP
+.B {-i,+indentation} length
+Gives the amount of indentation for each leading blank (tabs are
+converted to blanks). Default is `0.5em'.
+.TP
+.B {-n,+no-alignment}
+Comments belonging to statements are aligned to the right paper side
+by default. You can turn off this behaviour using this switch.
+.TP
+.B {-o,+output} \fIfile\fR
+The output is written in the file pointed to by \fIfile\fR.
+.TP
+.B {-s,+font-size} \fIsize\fR
+The LaTeX source is set in \fIsize\fRpt. Default is `10'.
+.TP
+.B {-p,+pipe}
+The output is written to stdout.
+.TP
+.B {-C,+comment-font} \fIfont\fR
+The comments are set in the given font. Default is `it'.
+.TP
+.B {-F,+function-font} \fIfont\fR
+The standard functions are set in the given font. Default is `bf'.
+.TP
+.B {-H,+header-font} \fIfont\fR
+The headers are set in the given font. Default is `sl'.
+.TP
+.B {-K,+keyword-font} \fIfont\fR
+The keywords are set in the given font. Default is `bf'.
+.TP
+.B {-P,+pascal} \fIfont\fR
+recognize
+.B Pascal
+keywords, only. Keywords must be written in uppercase letters!
+.TP
+.B {-S,+string-font} \fIfont\fR
+The string and character constants are set in the given font. Default is `tt'.
+.TP
+.B {-T,+tabstop} \fIwidth\fR
+The width of tabs is \fIwidth\fR. Default is `8'.
+.TP
+.B {-V,+version}
+Prints the version number on
+.I stderr.
+
+.SH OPTION SUMMARY
+.TP
+To give no option at all is the same as to give the options
+-i 0.5em -s 10 -C it -F bf -H sl -K bf -S tt -T 8
+
+.SH "SEE ALSO"
+.LP
+c++2latex(1), latex(1).
+
+.SH DIAGNOSTICS
+.TP
+.I Can't use {-p,+pipe} and {-o,+output} together.
+At most one of this options may be given.
+.LP
+.TP
+.I Can't open `<file>' for reading
+The program failed to open <file> for reading.
+.LP
+.TP
+.I Can't open `<file>' for writing
+The program failed to open <file> for writing. All output is written
+in the current directory if not explicitly changed by {-o,+output}.
+.LP
+.TP
+.I Virtual memory exhausted
+The program failed to allocate storage. As this is only done for the
+construction of filenames, this error will normally indicate a
+program error.
+
+.SH AUTHOR
+Copyright
+.if t \(co
+.if n (C)
+1991 by
+.if n Joerg Heitkoetter,
+.if t J\*org Heitk\*otter,
+Systems Analysis Group, University of Dortmund, Germany.
+.nf
+Send bugs, comments, etc., to (heitk...@gorbi.informatik.uni-dortmund.de).
+.fi
+
+.SH CREDITS
+.LP
+Thanks to Norbert Kiesel for his C++2LaTeX converter, showing me how
+to flex(1) something like this.
+
+.SH AVAILABILITY
+.LP
+This program is under GNU General Public License. Refer to the LICENSE file
+accompanying this software for a lengthy, boring, but absolutely complete
+description.
+
+.SH FINAL NOTE
+.LP
+If you want to use
+.I m2latex
+as a
+.B Pascal
+pretty printer only, simply install it as a (soft) link to ``p2latex''.
+The
+.B Modula-2
+mode is switched on, when
+.I m2latex
+finds the letter ``m'' in it's name during execution.

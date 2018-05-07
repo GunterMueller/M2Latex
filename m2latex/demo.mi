@@ -1,0 +1,31 @@
+MODULE demo;
+(* summiert von rechts nach links und vice versa *)
+
+FROM InOut IMPORT WriteString, WriteLn, WriteReal, ReadCard;
+
+VAR sumlr, sumrl: REAL; (* some reals *)
+       n, i: CARDINAL; (* some cardinals *)
+
+BEGIN
+    REPEAT
+       sumrl := 0.0;
+       sumlr := 0.0;
+       WriteString("Bitte n eingeben: "); WriteLn;
+       ReadCard(n);
+       FOR i := 2 TO n DO
+               sumlr := sumlr + 1.0/REAL(i);
+       END;
+       FOR i := n TO 2 BY -1 DO
+               sumrl := sumrl + 1.0/REAL(i);
+       END;
+       WriteString("Summation von links nach rechts ergibt: ");
+       WriteReal(sumlr, 11, 8);
+       WriteLn;
+       WriteString("Summation von rechts nach links ergibt: ");
+       WriteReal(sumrl, 11, 8);
+       WriteLn;
+       WriteString("Differenzbetrag: ");
+       WriteReal(ABS(sumlr-sumrl), 11, 8);
+       WriteLn;
+    UNTIL n=0;
+END demo.

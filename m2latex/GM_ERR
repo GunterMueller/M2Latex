@@ -1,0 +1,66 @@
+flex  -t m2latex.l > m2latex.c
+m2latex.l:233: warning, rule cannot be matched
+cc -O2   -c -o m2latex.o m2latex.c
+m2latex.l: In function ‘yylex’:
+m2latex.l:32:31: warning: passing argument 1 of ‘yyunput’ makes integer from pointer without a cast [-Wint-conversion]
+ #define STDFUN          unput("("); printf ("{\\%s %s} (", stdfun_font, yytext)
+                               ^
+<stdout>:194:27: note: in definition of macro ‘unput’
+m2latex.l:105:1: note: in expansion of macro ‘STDFUN’
+ <MODULA2>"INC"[ \t]*"("       STDFUN;
+ ^
+<stdout>:1075:17: note: expected ‘int’ but argument is of type ‘char *’
+In file included from m2latex.l:246:0:
+main.c: In function ‘substitute’:
+main.c:27:9: error: argument ‘input’ doesn’t match prototype
+ char   *input;
+         ^
+m2latex.l:67:6: error: prototype declaration
+ void substitute(const char*);
+      ^
+In file included from m2latex.l:246:0:
+main.c: In function ‘indent’:
+main.c:72:9: error: argument ‘blanks’ doesn’t match prototype
+ char   *blanks;
+         ^
+m2latex.l:68:6: error: prototype declaration
+ void indent(const char*);
+      ^
+In file included from main.c:89:0,
+                 from m2latex.l:246:
+getopt.h: At top level:
+getopt.h:86:5: error: conflicting types for ‘getopt’
+ int getopt (int, char **, char *);
+     ^
+In file included from /usr/include/unistd.h:874:0,
+                 from <stdout>:1023:
+/usr/include/getopt.h:150:12: note: previous declaration of ‘getopt’ was here
+ extern int getopt (int ___argc, char *const *___argv, const char *__shortopts)
+            ^
+In file included from m2latex.l:246:0:
+main.c:119:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ main (argc, argv)
+ ^
+main.c: In function ‘main’:
+main.c:132:16: error: conflicting types for ‘malloc’
+        char   *malloc ();
+                ^
+In file included from /usr/include/x86_64-linux-gnu/bits/string2.h:1273:0,
+                 from /usr/include/string.h:630,
+                 from <stdout>:20:
+/usr/include/stdlib.h:466:14: note: previous declaration of ‘malloc’ was here
+ extern void *malloc (size_t __size) __THROW __attribute_malloc__ __wur;
+              ^
+In file included from m2latex.l:246:0:
+main.c:300:16: warning: unknown conversion type character 0xa in format [-Wformat=]
+        printf ("\\expandafter\\ifx\\csname indentation\\endcsname\\relax%\n");
+                ^
+main.c: In function ‘usage’:
+main.c:315:9: error: argument ‘name’ doesn’t match prototype
+ char   *name;
+         ^
+m2latex.l:70:6: error: prototype declaration
+ void usage(const char*);
+      ^
+<builtin>: recipe for target 'm2latex.o' failed
+make: *** [m2latex.o] Error 1
